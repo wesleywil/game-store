@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import Menu from "@/components/menu/menu.component";
+import { Providers } from "./provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,8 +19,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <div className="min-h-screen overflow-hidden">
-          <Menu />
-          {children}
+          <Providers>
+            <Menu />
+            {children}
+          </Providers>
         </div>
       </body>
     </html>
