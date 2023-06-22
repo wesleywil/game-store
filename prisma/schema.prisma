@@ -54,7 +54,6 @@ model User {
     sessions  Session[]
     games     Game[]     @relation("Developer")
     purchases Purchase[]
-    Game      Game[]
 }
 
 model Game {
@@ -67,8 +66,6 @@ model Game {
 
     gameMidia GameMidia[]
     purchases Purchase[]
-    User      User?       @relation(fields: [userId], references: [id])
-    userId    String?
 }
 
 model Purchase {
