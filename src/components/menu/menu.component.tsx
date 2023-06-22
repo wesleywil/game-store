@@ -1,4 +1,14 @@
+"use client";
+
+import { useSession, signIn, signOut } from "next-auth/react";
+import Image from "next/image";
+import Link from "next/link";
+
 const Menu = () => {
+  const { data: session, status } = useSession();
+  if (status === "loading") {
+    return <h1>Loading...</h1>;
+  }
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
@@ -42,7 +52,7 @@ const Menu = () => {
             </li>
           </ul>
         </div>
-        <a className="btn btn-ghost normal-case text-xl">IndieGameBazaar</a>
+        <a className="btn btn-ghost normal-case md:text-xl">IndieGameBazaar</a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
@@ -67,9 +77,35 @@ const Menu = () => {
           </li>
         </ul>
       </div>
-      <div className="navbar-end">
-        <a className="btn">Button</a>
-      </div>
+      {status === "authenticated" ? (
+        <div className="navbar-end flex gap-2">
+          <Link href="/profile">
+            <Image
+              src={session.user.image}
+              width={32}
+              height={32}
+              alt="profile picture"
+              className="w-8 h-8  rounded-full"
+            />
+          </Link>
+
+          <button
+            onClick={() => signOut()}
+            className="px-2 py-1 bg-green-400 hover:bg-green-600 text-sm rounded"
+          >
+            SignOut
+          </button>
+        </div>
+      ) : (
+        <div className="navbar-end">
+          <button
+            onClick={() => signIn("google")}
+            className="px-2 py-1 bg-green-400 hover:bg-green-600 text-sm rounded"
+          >
+            SignIn
+          </button>
+        </div>
+      )}
     </div>
   );
 };
