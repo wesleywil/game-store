@@ -5,16 +5,16 @@ export default function Home() {
     <main className="grid h-[80vh] place-items-center">
       <div className="w-2/3 mt-12 flex flex-col items-center justify-center gap-4">
         <Link
-          href="/developer"
+          href="/profile"
           className="w-full text-4xl md:text-6xl  text-center px-2 py-1 bg-green-400 hover:bg-green-600 text-black md:outline outline-red-400 font-bold  rounded"
         >
-          Developer
+          Profile
         </Link>
         <Link
-          href="/gamer"
+          href="/store"
           className="w-full text-4xl md:text-6xl text-center px-2 py-1 bg-green-400 hover:bg-green-600 text-black md:outline outline-red-400 font-bold  rounded"
         >
-          Gamer
+          Store
         </Link>
       </div>
     </main>

@@ -2,7 +2,7 @@ import Container from "@/components/container/container.component";
 import GamerItem from "@/components/gamer_item/gamer_item.component";
 import GamerListSearch from "@/components/gamer_list_search/gamer_list_search.component";
 
-export default function List() {
+export default function Library() {
   return (
     <Container>
       <h1 className="w-11/12 mx-auto  pb-2 text-center text-2xl font-bold border-b-2 border-black">
