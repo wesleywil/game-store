@@ -5,3 +5,10 @@ export interface User{
     image?:string,
     role:string,
 }
+
+export interface Game{
+    id:string,
+    title:string,
+    description:string,
+    price:number,
+}
