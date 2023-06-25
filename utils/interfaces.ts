@@ -6,9 +6,17 @@ export interface User{
     role:string,
 }
 
+
 export interface Game{
     id:string,
     title:string,
     description:string,
     price:number,
+    gameMidia?:GameMidia[],
+}
+
+export interface GameMidia{
+    id:string,
+    url:string,
+    description:string,
 }
