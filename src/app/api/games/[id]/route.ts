@@ -30,13 +30,44 @@ export async function GET(
   }
 }
 
+export async function DELETE(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  const session = await getServerSession(authOptions);
+  try {
+    if (session) {
+      const gameDelete = await prisma.game.delete({
+        where: {
+          id: params.id,
+        },
+      });
+      return NextResponse.json({
+        message: `Game deleted successfully! - ${gameDelete}`,
+      });
+    }
+    return NextResponse.json(
+      {
+        message:
+          "You don't have authorization to delete this game, only the developer/publisher is allow to",
+      },
+      { status: 401 }
+    );
+  } catch (error) {
+    return NextResponse.json(
+      { error: `A server error has occurred! - ${error}` },
+      { status: 500 }
+    );
+  }
+}
+
 export async function PUT(
   request: Request,
   { params }: { params: { id: string } }
 ) {
   const session = await getServerSession(authOptions);
   let { title, description, price } = await request.json();
-  console.log('DATA COMING FROM THE FRONT=> ', {title, description, price})
+  console.log("DATA COMING FROM THE FRONT=> ", { title, description, price });
   try {
     if (session) {
       const gameUpdate = await prisma.game.update({
