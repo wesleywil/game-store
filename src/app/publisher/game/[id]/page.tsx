@@ -33,7 +33,7 @@ export default async function PublishedGame({
       <div className="w-full px-2 bg-orange-300">
         <h1 className="font-bold text-center">Publisher options</h1>
       </div>
-      <PublisherOptions />
+      <PublisherOptions id={params.id!} />
     </div>
   );
 }
