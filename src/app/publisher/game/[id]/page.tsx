@@ -6,12 +6,30 @@ export default async function PublishedGame({
 }: {
   params: { id: string };
 }) {
-  const req = await fetch(`http://localhost:3000/api/games/${params.id}`);
+  const req = await fetch(`http://localhost:3000/api/games/${params.id}`, {
+    cache: "no-cache",
+  });
   const game: Game = await req.json();
+  console.log("game Midia", game);
   return (
     <div className="h-[85vh]">
       {game.gameMidia?.length ? (
-        ""
+        <>
+          <div className="carousel w-full">
+            {game.gameMidia.map((item, index) => (
+              <div id={`${index + 1}`} className="carousel-item w-full">
+                <img src={item.url} className="w-full" />
+              </div>
+            ))}
+          </div>
+          <div className="flex justify-center w-full py-2 gap-2">
+            {game.gameMidia.map((item, index) => (
+              <a href={`#${index + 1}`} className="btn btn-xs">
+                {index + 1}
+              </a>
+            ))}
+          </div>
+        </>
       ) : (
         <div className="px-2 flex flex-col">
           <div className="mb-1 flex justify-between text-xl">
