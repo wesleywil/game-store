@@ -19,9 +19,12 @@ const PublisherOptions = ({ id }: { id: string }) => {
   return (
     <>
       <div className="w-full mt-2 px-2 py-4 flex justify-center items-center gap-8 text-4xl text-black">
-        <button className="hover:text-green-600">
+        <Link
+          href={`/publisher/game/${id}/media/`}
+          className="hover:text-green-600"
+        >
           <FaPhotoVideo />
-        </button>
+        </Link>
         <Link
           href={`/publisher/game/${id}/edit/`}
           className="hover:text-green-600"
