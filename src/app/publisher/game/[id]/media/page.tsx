@@ -1,45 +1,52 @@
+import Image from "next/image";
 import Link from "next/link";
-import { addMedia } from "@/server_actions/add_media";
+import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import { GameMidia } from "../../../../../../utils/interfaces";
 
-export default async function AddMedia({ params }: { params: { id: string } }) {
+export default async function Media({ params }: { params: { id: string } }) {
+  const req = await fetch(`http://localhost:3000/api/gamemidia/${params.id}`, {
+    cache: "no-cache",
+  });
+  const gameMidia: GameMidia[] = await req.json();
+  console.log("GameMidia=> ", params.id);
   return (
     <div className="h-[85vh]">
-      <h1 className="mt-8 text-center text-3xl font-bold">New Media</h1>
-      <form
-        action={addMedia}
-        className="w-11/12 mt-8 mx-auto p-2 flex flex-col gap-3 text-xl border border-black rounded"
-      >
-        <input
-          type="text"
-          name="id"
-          defaultValue={params ? params.id : ""}
-          className="opacity-0 hidden"
-        />
-        <input
-          type="text"
-          name="url"
-          placeholder="Ex: youtube/imgur etc..."
-          className="w-full px-2 py-1 rounded"
-        />
-        <textarea
-          name="description"
-          rows={8}
-          placeholder="Ex: Trailer, Gameplay screenshot"
-          className="w-full px-2 py-1 rounded"
-        ></textarea>
-
-        <div className="flex gap-2 justify-center items-center font-semibold">
-          <button className="px-2 py-1 bg-green-400 hover:bg-green-600 rounded">
-            Submit
-          </button>
-          <Link
-            href="/publisher"
-            className="px-2 py-1 bg-green-400 hover:bg-green-600 rounded"
-          >
-            Cancel
-          </Link>
-        </div>
-      </form>
+      <div className="w-11/12 mx-auto mt-8 px-4 pb-2 flex justify-between text-xl font-bold border-b-2 border-black">
+        <h1>Game Medias</h1>
+        <Link
+          href={`/publisher/game/${params.id}/media/new`}
+          className="px-2 py-1 text-sm bg-green-400 hover:bg-green-600 "
+        >
+          Add Media
+        </Link>
+      </div>
+      <h1 className="mt-4 px-2 py-1 text-xl text-center ">Gallery</h1>
+      <div className="h-[65vh] mt-2 px-2 py-4 flex flex-col items-center gap-2 overflow-y-auto">
+        {gameMidia.length ? (
+          gameMidia.map((item) => (
+            <div className="flex flex-col">
+              <div className="py-2 flex justify-end gap-2 text-2xl">
+                <button className="text-green-400 hover:text-green-600">
+                  <FaEdit />
+                </button>
+                <button className="text-red-400 hover:text-red-600">
+                  <FaTrashAlt />
+                </button>
+              </div>
+              <Image
+                src={item.url}
+                width={500}
+                height={192}
+                alt="game images"
+              />
+            </div>
+          ))
+        ) : (
+          <div className="w-full h-48 bg-black flex justify-center items-center rounded">
+            <h1 className="text-4xl font-bold text-white">NO MEDIA</h1>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
