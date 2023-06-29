@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
 import { GameMidia } from "../../../../../../utils/interfaces";
+import BtnDeleteGameMedia from "@/components/btn_delete_gameMedia/btn_delete_gameMedia.component";
 
 export default async function Media({ params }: { params: { id: string } }) {
   const req = await fetch(`http://localhost:3000/api/gamemidia/${params.id}`, {
@@ -9,6 +10,7 @@ export default async function Media({ params }: { params: { id: string } }) {
   });
   const gameMidia: GameMidia[] = await req.json();
   console.log("GameMidia=> ", params.id);
+
   return (
     <div className="h-[85vh]">
       <div className="w-11/12 mx-auto mt-8 px-4 pb-2 flex justify-between text-xl font-bold border-b-2 border-black">
@@ -26,12 +28,13 @@ export default async function Media({ params }: { params: { id: string } }) {
           gameMidia.map((item) => (
             <div className="flex flex-col">
               <div className="py-2 flex justify-end gap-2 text-2xl">
-                <button className="text-green-400 hover:text-green-600">
+                <Link
+                  href={`/publisher/game/${item.id}/media/edit`}
+                  className="text-green-400 hover:text-green-600"
+                >
                   <FaEdit />
-                </button>
-                <button className="text-red-400 hover:text-red-600">
-                  <FaTrashAlt />
-                </button>
+                </Link>
+                <BtnDeleteGameMedia mediaId={item.id} id={params.id} />
               </div>
               <Image
                 src={item.url}
