@@ -19,4 +19,5 @@ export interface GameMidia{
     id:string,
     url:string,
     description:string,
+    gameId:string
 }
