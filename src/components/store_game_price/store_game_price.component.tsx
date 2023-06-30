@@ -1,9 +1,14 @@
 import { FaCartPlus } from "react-icons/fa";
+import { Game } from "../../../utils/interfaces";
 
-const StoreGamePrice = () => {
+interface StoreGamePriceProps {
+  data: Game;
+}
+
+const StoreGamePrice: React.FC<StoreGamePriceProps> = ({ data }) => {
   return (
     <div className="p-1 py-2 flex flex-col bg-slate-300">
-      <h1 className="text-2xl text-center font-bold">$40.00</h1>
+      <h1 className="text-2xl text-center font-bold">${data.price}</h1>
       <h3 className="text-sm font-semibold text-center">
         Product activated by activation key
       </h3>
