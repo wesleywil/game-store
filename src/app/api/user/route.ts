@@ -1,4 +1,3 @@
-import { request } from "http";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import prisma from "../../../../prisma/client";
@@ -13,6 +12,10 @@ export async function GET(request: Request) {
         where: {
           id: session.user.id,
         },
+        include:{
+          purchases:true,
+          games:true
+        }
       });
       return NextResponse.json(user, { status: 200 });
     } else {
