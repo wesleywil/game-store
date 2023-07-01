@@ -4,6 +4,8 @@ export interface User{
     email?:string,
     image?:string,
     role:string,
+    games:Game[];
+    purchases:Purchase[],
 }
 
 
@@ -13,6 +15,12 @@ export interface Game{
     description:string,
     price:number,
     gameMidia?:GameMidia[],
+}
+
+export interface Purchase{
+    id:string,
+    amount:number,
+    createdAt?:Date
 }
 
 export interface GameMidia{
