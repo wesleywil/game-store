@@ -3,6 +3,7 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import Cart from "../cart/cart.component";
 
 const Menu = () => {
   const { data: session, status } = useSession();
@@ -11,101 +12,48 @@ const Menu = () => {
   }
   return (
     <div className="navbar bg-base-100">
-      <div className="navbar-start">
-        <div className="dropdown">
-          <label tabIndex={0} className="btn btn-ghost lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />
-            </svg>
-          </label>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
-          >
-            <li>
-              <a>Item 1</a>
-            </li>
-            <li>
-              <a>Parent</a>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a>Item 3</a>
-            </li>
-          </ul>
-        </div>
-        <a className="btn btn-ghost normal-case md:text-xl">IndieGameBazaar</a>
+      <div className="flex-1">
+        <Link href="/" className="btn btn-ghost normal-case text-sm">
+          IndieGameBazaar
+        </Link>
       </div>
-      <div className="navbar-center hidden lg:flex">
+      <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <a>Item 1</a>
-          </li>
-          <li tabIndex={0}>
-            <details>
-              <summary>Parent</summary>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </details>
+            <Link href="/store">Store</Link>
           </li>
           <li>
-            <a>Item 3</a>
+            {status === "authenticated" ? (
+              <div className="dropdown dropdown-bottom">
+                <span tabIndex={0}>Menu</span>
+                <ul className="dropdown-content z-[1] bg-black text-white text-center rounded overflow-hidden">
+                  <li>
+                    <Link href="/profile">Profile</Link>
+                  </li>
+                  <li className="border-t-2 border-white bg-green-400 hover:bg-green-600">
+                    <button
+                      onClick={() => signOut()}
+                      className="w-full flex justify-center text-black font-bold"
+                    >
+                      Sign Out
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            ) : (
+              <button
+                onClick={() => signIn("google")}
+                className="px-2 py-1 bg-green-400 hover:bg-green-600 text-sm rounded"
+              >
+                SignIn
+              </button>
+            )}
+          </li>
+          <li className="flex justify-center items-center">
+            <Cart />
           </li>
         </ul>
       </div>
-      {status === "authenticated" ? (
-        <div className="navbar-end flex gap-2">
-          <Link href="/profile">
-            <Image
-              src={session.user.image}
-              width={32}
-              height={32}
-              alt="profile picture"
-              className="w-8 h-8  rounded-full"
-            />
-          </Link>
-
-          <button
-            onClick={() => signOut()}
-            className="px-2 py-1 bg-green-400 hover:bg-green-600 text-sm rounded"
-          >
-            SignOut
-          </button>
-        </div>
-      ) : (
-        <div className="navbar-end">
-          <button
-            onClick={() => signIn("google")}
-            className="px-2 py-1 bg-green-400 hover:bg-green-600 text-sm rounded"
-          >
-            SignIn
-          </button>
-        </div>
-      )}
     </div>
   );
 };
