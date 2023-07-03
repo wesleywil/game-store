@@ -21,6 +21,14 @@ export const fetchGames = createAsyncThunk("games/fetchGames", async () => {
   return res.data;
 });
 
+export const selectGameById = createAsyncThunk(
+  "games/selectGame",
+  async (id: string) => {
+    const res = await axios.get(`http://localhost:3000/api/games/${id}`);
+    return res.data;
+  }
+);
+
 export const gameSlice = createSlice({
   name: "games",
   initialState,
@@ -35,6 +43,18 @@ export const gameSlice = createSlice({
         state.games = payload;
       })
       .addCase(fetchGames.rejected, (state, { payload }) => {
+        state.status = "error";
+        state.error = String(payload);
+      })
+      .addCase(selectGameById.pending, (state) => {
+        state.status = "selecting";
+      })
+      .addCase(selectGameById.fulfilled, (state, { payload }) => {
+        state.status = "selected";
+        state.game = payload;
+      })
+      .addCase(selectGameById.rejected, (state, { payload }) => {
+        state.status = "error while trying to select game";
         state.error = String(payload);
       });
   },
