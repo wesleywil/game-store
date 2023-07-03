@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { FaCartPlus } from "react-icons/fa";
-import { Game, GameMidia } from "../../../utils/interfaces";
+
+import { GameMidia } from "../../../utils/interfaces";
+import BtnCart from "../btn_cart/btn_cart.component";
 
 interface GameItemProps {
   id: string;
@@ -14,7 +15,11 @@ const GameItem = ({ id, title, price, gameMidia }: GameItemProps) => {
     <div className="flex flex-col">
       <div
         style={{
-          backgroundImage: `url(${gameMidia[0].url})`,
+          backgroundImage: `url(${
+            gameMidia.length
+              ? gameMidia[0].url
+              : "http://dummyimage.com/200x200"
+          })`,
           backgroundSize: "cover",
         }}
         className="h-36 h-36 py-1 flex flex-col items-center justify-end bg-green-400 rounded-xl"
@@ -30,9 +35,7 @@ const GameItem = ({ id, title, price, gameMidia }: GameItemProps) => {
         <h1>{title.length > 18 ? title.slice(0, 15) + "..." : title}</h1>
         <div className="flex justify-between">
           <h2 className="text-slate-500">${price}</h2>
-          <div className="mr-1 p-1 bg-green-300 text-blue rounded">
-            <FaCartPlus />
-          </div>
+          <BtnCart id={id} />
         </div>
       </div>
     </div>
