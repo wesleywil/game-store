@@ -30,7 +30,7 @@ export default async function Profile() {
         <h1 className="text-xl font-bold">{user.name}</h1>
         <Link
           href="profile/edit"
-          className="w-1/2 mx-auto mt-2 mb-4 px-2 py-1 font-bold text-center text-sm bg-green-400 hover:bg-green-600 rounded"
+          className="w-1/2 md:w-48 mx-auto mt-2 mb-4 px-2 py-1 font-bold text-center text-sm bg-green-400 hover:bg-green-600 rounded"
         >
           Edit
         </Link>

@@ -18,7 +18,7 @@ const GameList = () => {
   }, [status]);
   if (games.length) {
     return (
-      <div className="mb-2 px-2 grid grid-cols-2 gap-4 justify-center">
+      <div className="mb-2 px-2 grid grid-cols-2 md:flex gap-4 md:gap-40 justify-center">
         {games.map((item, index) => (
           <GameItem
             key={index}

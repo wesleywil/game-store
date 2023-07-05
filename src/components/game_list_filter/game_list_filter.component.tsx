@@ -4,7 +4,7 @@ const GameListFilter = () => {
   return (
     <div
       draggable
-      className="absolute w-11/12 bg-blue-400 top-[88%] opacity-80 left-1/2 transform -translate-x-1/2 rounded overflow-hidden"
+      className="absolute w-11/12 md:w-1/4 bg-blue-400 top-[88%] opacity-80 left-1/2 transform -translate-x-1/2 rounded overflow-hidden"
     >
       <div className="grid grid-cols-2">
         <div className="  flex items-center justify-center">

@@ -37,7 +37,7 @@ export default async function ProfileEdit() {
       <h1 className="mt-8 text-center text-3xl font-bold">Edit</h1>
       <form
         action={handleSubmit}
-        className="w-11/12 mt-8 mx-auto p-2 flex flex-col gap-3 text-xl border border-black rounded"
+        className="w-11/12 md:w-1/4 mt-8 mx-auto p-2 md:p-8 flex flex-col gap-3 text-xl border border-black rounded"
       >
         <input
           type="text"

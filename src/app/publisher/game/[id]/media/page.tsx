@@ -13,7 +13,7 @@ export default async function Media({ params }: { params: { id: string } }) {
 
   return (
     <div className="h-[85vh]">
-      <div className="w-11/12 mx-auto mt-8 px-4 pb-2 flex justify-between text-xl font-bold border-b-2 border-black">
+      <div className="w-11/12 md:w-2/3 mx-auto mt-8 px-4 pb-2 flex justify-between text-xl font-bold border-b-2 border-black">
         <h1>Game Medias</h1>
         <Link
           href={`/publisher/game/${params.id}/media/new`}

@@ -6,7 +6,7 @@ const FeatureGame = (data: any) => {
     return (
       <div
         style={{ backgroundImage: `url(${game.url})`, backgroundSize: "cover" }}
-        className="w-full h-48 py-2 flex flex-col items-center justify-end"
+        className="w-full md:w-2/3 h-48 md:h-[50vh] md:mx-auto py-2 flex flex-col items-center justify-end"
       >
         <div className="w-full flex flex-col items-center bg-black/30">
           <h1 className="mb-2 text-white text-3xl font-semibold">

@@ -21,7 +21,7 @@ export default async function Update({ params }: { params: { id: string } }) {
 
       <form
         action={updateGameMedia}
-        className="w-11/12 mt-8 mx-auto p-2 flex flex-col gap-3 text-xl border border-black rounded"
+        className="w-11/12 md:w-1/3 mt-8 mx-auto p-2 flex flex-col gap-3 text-xl border border-black rounded"
       >
         <input
           type="text"

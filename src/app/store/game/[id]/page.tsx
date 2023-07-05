@@ -11,7 +11,7 @@ export default async function Game({ params }: { params: { id: string } }) {
   });
   const game: Game = await req.json();
   return (
-    <div>
+    <div className="md:w-2/3 md:mx-auto">
       <h1 className="text-black text-2xl font-semibold">{game.title}</h1>
       {/* Game gallery */}
       <StoreGameGallery data={game} />

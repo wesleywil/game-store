@@ -7,7 +7,7 @@ export default async function AddMedia({ params }: { params: { id: string } }) {
       <h1 className="mt-8 text-center text-3xl font-bold">New Media</h1>
       <form
         action={addMedia}
-        className="w-11/12 mt-8 mx-auto p-2 flex flex-col gap-3 text-xl border border-black rounded"
+        className="w-11/12 md:w-1/3 mt-8 mx-auto p-2 md:p-8 flex flex-col gap-3 text-xl border border-black rounded"
       >
         <input
           type="text"

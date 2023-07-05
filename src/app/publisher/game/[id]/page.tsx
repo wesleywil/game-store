@@ -18,7 +18,7 @@ export default async function PublishedGame({
           <div className="carousel w-full">
             {game.gameMidia.map((item, index) => (
               <div id={`${index + 1}`} className="carousel-item w-full">
-                <img src={item.url} className="w-full" />
+                <img src={item.url} className="w-full md:w-1/3 mx-auto" />
               </div>
             ))}
           </div>
@@ -42,13 +42,13 @@ export default async function PublishedGame({
           </div>
         </div>
       )}
-      <div className="w-full px-2 flex flex-col">
+      <div className="w-full md:w-1/3 md:mx-auto px-2 flex flex-col">
         <h1 className="text-xl font-semibold">Description</h1>
         <p className="h-48 px-2 py-1 text-center overflow-y-auto">
           {game.description}
         </p>
       </div>
-      <div className="w-full px-2 bg-orange-300">
+      <div className="w-full md:w-1/3 md:mx-auto px-2 bg-orange-300">
         <h1 className="font-bold text-center">Publisher options</h1>
       </div>
       <PublisherOptions id={params.id!} />

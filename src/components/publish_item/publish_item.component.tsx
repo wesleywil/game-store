@@ -16,8 +16,8 @@ const PublishItem = ({
   price,
 }: PublishItemProps) => {
   return (
-    <div className="w-full flex flex-col border border-green-400 rounded">
-      <div className="p-2 flex justify-center items-center gap-4">
+    <div className="w-full md:w-2/3 flex flex-col border border-green-400 rounded">
+      <div className="p-2 flex justify-between items-center gap-4">
         <div className="w-12 h-12 bg-black rounded-full"></div>
         <div className="flex flex-col justify-center text-left">
           <h1 className="font-bold">{name}</h1>

@@ -12,7 +12,7 @@ export default async function Store() {
   return (
     <>
       <FeatureGame data={randomGame} />
-      <div className="flex flex-col gap-2">
+      <div className="md:w-2/3 md:mx-auto flex flex-col gap-2">
         <GameSelectorListWidget />
         <GameList />
 

@@ -12,7 +12,7 @@ interface GameItemProps {
 
 const GameItem = ({ id, title, price, gameMidia }: GameItemProps) => {
   return (
-    <div className="flex flex-col">
+    <div className="md:w-80 flex flex-col">
       <div
         style={{
           backgroundImage: `url(${
@@ -22,7 +22,7 @@ const GameItem = ({ id, title, price, gameMidia }: GameItemProps) => {
           })`,
           backgroundSize: "cover",
         }}
-        className="h-36 h-36 py-1 flex flex-col items-center justify-end bg-green-400 rounded-xl"
+        className=" h-36 md:h-44  py-1 flex flex-col items-center justify-end bg-green-400 rounded-xl"
       >
         <Link
           href={`/store/game/${id}`}
@@ -31,10 +31,12 @@ const GameItem = ({ id, title, price, gameMidia }: GameItemProps) => {
           View Game
         </Link>
       </div>
-      <div className="flex flex-col">
+      <div className=" flex flex-col md:text-xl">
         <h1>{title.length > 18 ? title.slice(0, 15) + "..." : title}</h1>
         <div className="flex justify-between">
-          <h2 className="text-slate-500">${price}</h2>
+          <h2 className="text-slate-500 md:text-black md:font-bold">
+            ${price}
+          </h2>
           <BtnCart id={id} />
         </div>
       </div>
