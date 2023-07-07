@@ -1,14 +1,28 @@
 "use client";
 
 import { useSession, signIn, signOut } from "next-auth/react";
-import Image from "next/image";
 import Link from "next/link";
 import Cart from "../cart/cart.component";
 
 const Menu = () => {
   const { data: session, status } = useSession();
   if (status === "loading") {
-    return <h1>Loading...</h1>;
+    return (
+      <div className="navbar bg-base-100">
+        <div className="flex-1">
+          <Link href="/" className="btn btn-ghost normal-case text-sm">
+            IndieGameBazaar
+          </Link>
+        </div>
+        <div className="flex-none">
+          <ul className="menu menu-horizontal px-1">
+            <li>
+              <Link href="/store">Store</Link>
+            </li>
+          </ul>
+        </div>
+      </div>
+    );
   }
   return (
     <div className="navbar bg-base-100">
@@ -43,7 +57,7 @@ const Menu = () => {
             ) : (
               <button
                 onClick={() => signIn("google")}
-                className="px-2 py-1 bg-green-400 hover:bg-green-600 text-sm rounded"
+                className="mt-1 mr-2 px-2 py-1 bg-green-400 hover:bg-green-600 text-sm rounded"
               >
                 SignIn
               </button>
