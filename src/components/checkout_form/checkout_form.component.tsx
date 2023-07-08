@@ -1,26 +1,26 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   PaymentElement,
-  LinkAuthenticationElement,
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
 
-export default function CheckoutForm() {
+export default function CheckoutForm(paymentIntent: any) {
+  const [email, setEmail] = useState("");
+  const [locAmount, setLocAmount] = useState("300");
+  const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
 
-  const [email, setEmail] = React.useState("");
-  const [message, setMessage] = React.useState("");
-  const [isLoading, setIsLoading] = React.useState(false);
-
-  React.useEffect(() => {
+  useEffect(() => {
     if (!stripe) {
       return;
     }
 
+    //Grab the client secret from url params
     const clientSecret = new URLSearchParams(window.location.search).get(
       "payment_intent_client_secret"
     );
@@ -47,53 +47,101 @@ export default function CheckoutForm() {
     });
   }, [stripe]);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLElement>) => {
+  const handleAmount = async (val: string) => {
+    setLocAmount(val);
+    fetch("http://localhost:3000/api/payment", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        amount: Number(val) * 100,
+        payment_intent_id: paymentIntent.paymentIntent,
+      }),
+    });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!stripe || !elements) {
-      // Stripe.js hasn't yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
+      console.log("not loaded");
       return;
     }
-
     setIsLoading(true);
 
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        // Make sure to change this to your payment completion page
-        return_url: "http://localhost:3000",
+        return_url: "http://localhost:3000/",
+        receipt_email: email,
+        payment_method_data: {
+          billing_details: {
+            name: "Billing user",
+          },
+        },
       },
     });
 
-    // This point will only be reached if there is an immediate error when
-    // confirming the payment. Otherwise, your customer will be redirected to
-    // your `return_url`. For some payment methods like iDEAL, your customer will
-    // be redirected to an intermediate site first to authorize the payment, then
-    // redirected to the `return_url`.
     if (error.type === "card_error" || error.type === "validation_error") {
       setMessage(error.message!);
     } else {
-      setMessage("An unexpected error occurred.");
+      setMessage("An unexpected error occured.");
     }
 
     setIsLoading(false);
   };
 
-  const paymentElementOptions: any = {
-    layout: "tabs",
-  };
-
   return (
-    <form id="payment-form" onSubmit={handleSubmit}>
-      <PaymentElement id="payment-element" options={paymentElementOptions} />
-      <button disabled={isLoading || !stripe || !elements} id="submit">
-        <span id="button-text">
-          {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
-        </span>
-      </button>
-      {/* Show any error or success messages */}
-      {message && <div id="payment-message">{message}</div>}
-    </form>
+    <>
+      <form id="payment-form" onSubmit={handleSubmit} className="m-auto">
+        <div className="mb-3">
+          Cart Total:
+          <input
+            id="amount"
+            type="text"
+            value={locAmount}
+            className="block
+            w-full
+            px-2
+            rounded-md
+            border-gray-300
+            shadow-sm h-16"
+            onChange={(e) => handleAmount(e.target.value)}
+            placeholder="Enter email address"
+          />
+        </div>
+        <div className="mb-6">
+          Email address:
+          <input
+            className="block
+            w-full
+            px-2
+            rounded-md
+            border-gray-300
+            shadow-sm h-16"
+            id="email"
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter email address"
+          />
+        </div>
+        <PaymentElement id="payment-element" />
+        <button
+          className="w-full mt-2 px-2 py-1 bg-green-400 hover:bg-green-600 rounded"
+          disabled={isLoading || !stripe || !elements}
+          id="submit"
+        >
+          <span id="button-text">
+            {isLoading ? (
+              <div className="spinner" id="spinner"></div>
+            ) : (
+              "Pay now"
+            )}
+          </span>
+        </button>
+        {/* Show any error or success messages */}
+        {message && <div id="payment-message">{message}</div>}
+      </form>
+    </>
   );
 }
