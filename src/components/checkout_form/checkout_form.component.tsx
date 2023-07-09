@@ -7,9 +7,9 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 
-export default function CheckoutForm(paymentIntent: any) {
+export default function CheckoutForm() {
   const [email, setEmail] = useState("");
-  const [locAmount, setLocAmount] = useState("300");
+  // const [locAmount, setLocAmount] = useState(amount);
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const stripe = useStripe();
@@ -47,18 +47,6 @@ export default function CheckoutForm(paymentIntent: any) {
     });
   }, [stripe]);
 
-  const handleAmount = async (val: string) => {
-    setLocAmount(val);
-    fetch("http://localhost:3000/api/payment", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        amount: Number(val) * 100,
-        payment_intent_id: paymentIntent.paymentIntent,
-      }),
-    });
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -93,22 +81,7 @@ export default function CheckoutForm(paymentIntent: any) {
   return (
     <>
       <form id="payment-form" onSubmit={handleSubmit} className="m-auto">
-        <div className="mb-3">
-          Cart Total:
-          <input
-            id="amount"
-            type="text"
-            value={locAmount}
-            className="block
-            w-full
-            px-2
-            rounded-md
-            border-gray-300
-            shadow-sm h-16"
-            onChange={(e) => handleAmount(e.target.value)}
-            placeholder="Enter email address"
-          />
-        </div>
+        <div className="mb-3"></div>
         <div className="mb-6">
           Email address:
           <input

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
 import { cleanCart } from "@/redux/cart/cart";
@@ -51,9 +52,12 @@ export default function Checkout() {
         </div>
         {/* Pay Button */}
         <div className="w-11/12 p-2 mx-auto flex justify-center rounded">
-          <button className="w-2/3 px-2 py-1 text-xl bg-green-400 hover:bg-green-600 text-black font-bold rounded">
+          <Link
+            href="/payment"
+            className="w-2/3 px-2 py-1 text-xl text-center bg-green-400 hover:bg-green-600 text-black font-bold rounded"
+          >
             Pay
-          </button>
+          </Link>
         </div>
       </div>
     </div>
